@@ -1,5 +1,6 @@
 import os
 
+ENTRY_ON_PAGE = 2
 handbook_information = 'handbook_information.txt'
 
 
@@ -16,13 +17,12 @@ def create_entry():
         file.writelines(new_entry + '\n')
 
 
-def display_entries(entries:list):
-    entry_on_page = 2
-    for count in range(0, len(entries),entry_on_page):
-        page = entries[count:count + entry_on_page]
+def display_entries(entries:list,ENTRY_ON_PAGE):
+    for count in range(0, len(entries),ENTRY_ON_PAGE):
+        page = entries[count:count + ENTRY_ON_PAGE]
         for entry in page:
             print(entry)
-        if len(entries) > entry_on_page:
+        if len(entries) > ENTRY_ON_PAGE:
             print('________________________________________')
 
 
@@ -79,7 +79,11 @@ if __name__ == "__main__":
             index = int(input('Введите запись, которую хотите отредактировать: '))
             edit_entry(index) # Для редактирования записи нужно передать номер записи (Обратите внимание на количество записей)
         case 3:
-            display_entries(entries)  # Функция на отображение постранично
+            print('Количество записей в справочнике', len(entries))
+            option = input('Количество записей на одной странице равно 2, если хотите поменять количесво, введите YES: ')
+            if option == 'YES':
+                ENTRY_ON_PAGE = int(input('Введите новое количество записей: '))
+            display_entries(entries,ENTRY_ON_PAGE)  # Функция на отображение постранично
         case 4:
             search_entries() # В функии на поиск записей нужно будет указать по каким характеристик\ам Вы собираетесь искать
 
